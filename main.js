@@ -63,6 +63,20 @@ document.getElementById("initBonus").value = initBonus
 var speed = getCookie("speed")
 document.getElementById("speed").value = speed
 
+var fortSave = getCookie("fortSave")
+document.getElementById("save-fort-cb").checked = fortSave
+var refSave = getCookie("refSave")
+document.getElementById("save-ref-cb").checked = refSave
+var willSave = getCookie("willSave")
+document.getElementById("save-will-cb").checked = willSave
+
+var fortSaveXP = getCookie("fortSaveXP")
+document.getElementById("save-fort-exp").value = fortSaveXP
+var refSaveXP = getCookie("refSaveXP")
+document.getElementById("save-ref-exp").value = refSaveXP
+var willSaveXP = getCookie("willSaveXP")
+document.getElementById("save-will-exp").value = willSaveXP
+
 function updateAbiScore() {
     str = document.getElementById("strScore").value;
     if (str == "") {
@@ -142,7 +156,7 @@ function updateAbiScore() {
     setCookie("intScore", int)
     setCookie("wisScore", wis)
     setCookie("chaScore", cha)
-    
+
 }
 
 function updateHP() {
@@ -208,12 +222,65 @@ function updateSpeed() {
     setCookie("speed", speed)
 }
 
+function updateSave() {
+    fortSave = document.getElementById("save-fort-cb").checked;
+    fortSaveXP = document.getElementById("save-fort-exp").value;
+    if (fortSaveXP == "") {
+      fortSaveXP = 0
+    }
+    document.getElementById("save-fort-stat").innerHTML = conMod
+    fortMod = conMod
+    if (fortSave) {
+      fortMod += parseInt(fortSaveXP)
+    } else {
+      fortMod += Math.floor(parseInt(fortSaveXP) / 2)
+    }
+    document.getElementById("save-fort-mod").innerHTML = fortMod
+    setCookie("fortSave", fortSave)
+    setCookie("fortSaveXP", fortSaveXP)
+
+    refSave = document.getElementById("save-ref-cb").checked;
+    refSaveXP = document.getElementById("save-ref-exp").value;
+    if (refSaveXP == "") {
+      refSaveXP = 0
+    }
+    document.getElementById("save-ref-stat").innerHTML = dexMod
+    refMod = dexMod
+    if (refSave) {
+      refMod += parseInt(refSaveXP)
+    } else {
+      refMod += Math.floor(parseInt(refSaveXP) / 2)
+    }
+    document.getElementById("save-ref-mod").innerHTML = refMod
+    setCookie("refSave", refSave)
+    setCookie("refSaveXP", refSaveXP)
+
+    willSave = document.getElementById("save-will-cb").checked;
+    willSaveXP = document.getElementById("save-will-exp").value;
+    if (willSaveXP == "") {
+      willSaveXP = 0
+    }
+    document.getElementById("save-will-stat").innerHTML = wisMod
+    willMod = wisMod
+    if (willSave) {
+      willMod += parseInt(willSaveXP)
+    } else {
+      willMod += Math.floor(parseInt(willSaveXP) / 2)
+    }
+    document.getElementById("save-will-mod").innerHTML = willMod
+    setCookie("willSave", willSave)
+    setCookie("willSaveXP", willSaveXP)
+
+
+}
+
 function update() {
     updateAbiScore()
     updateHP()
     updateAC()
     updateInit()
     updateSpeed()
+    updateSave()
 }
 
 update()

@@ -121,9 +121,9 @@
 									/>
 								</div>
 								<div class="column is-4">
-										<div class="mt-2"></div>
-										<span>&nbsp;&nbsp;=&nbsp;</span>
-										<span id="init">10</span>
+									<div class="mt-2"></div>
+									<span>&nbsp;&nbsp;=</span>
+									<span id="init">10</span>
 								</div>
 							</div>
 						</div>
@@ -142,7 +142,7 @@
 				</div>
 				<div class="mt-5"></div>
 				<div class="columns">
-					<div class="column is-one-quarter">
+					<div class="column is-3">
 						<div class="card">
 							<footer class="card-footer">
 								<span class="card-footer-item">STR</span>
@@ -209,6 +209,49 @@
 								<span id="chaMod" class="card-footer-item">-</span>
 							</footer>
 						</div>
+						<div class="mt-5"></div>
+						<div class="box p-0">
+							<table class="table is-bordered is-striped">
+								<thead>
+									<tr>
+										<th>Save</th>
+										<th>Stat</th>
+										<th>Exp</th>
+										<th>GS?</th>
+										<th>+</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>Fort</td>
+										<td id="save-fort-stat">0</td>
+										<td><input id="save-fort-exp" class="input is-small" type="text" onchange="update()" placeholder="0"
+												oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+												/></td>
+										<td><input id="save-fort-cb" type="checkbox" onchange="update()"></td>
+										<td id="save-fort-mod">0</td>
+									</tr>
+									<tr>
+										<td>Ref</td>
+										<td id="save-ref-stat">0</td>
+										<td><input id="save-ref-exp" class="input is-small" type="text" onchange="update()" placeholder="0"
+												oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+												/></td>
+										<td><input id="save-ref-cb" type="checkbox" onchange="update()"></td>
+										<td id="save-ref-mod">0</td>
+									</tr>
+									<tr>
+										<td>Will</td>
+										<td id="save-will-stat">0</td>
+										<td><input id="save-will-exp" class="input is-small" type="text" onchange="update()" placeholder="0"
+												oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+												/></td>
+										<td><input id="save-will-cb" type="checkbox" onchange="update()"></td>
+										<td id="save-will-mod">0</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
 					</div>
 					<div class="column">
 						Second column
@@ -223,6 +266,19 @@
 </body>
 <script src="main.js"></script>
 <style>
+	table, td, th {
+	border: 1px solid #DDD;
+	text-align:center;
+	width:100%;
+	}
+	th
+	{
+	background:#DDEEEE;
+	}
+	table {
+	width: 100%;
+	border-collapse: collapse;
+	}
 	.vl {
 	border-left: 1px solid #ededed;
 	height: is-size;
