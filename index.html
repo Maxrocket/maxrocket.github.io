@@ -1,7 +1,231 @@
 <!DOCTYPE html>
-<script src="main.js"></script>
 <html>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
 	<body>
-
-	</body>
+		<div class="container">
+			<section class="hero is-primary">
+				<div class="hero-body">
+					<p class="title">
+						Hero Title
+					</p>
+					<p class="subtitle">
+						Hero subtitle
+					</p>
+				</div>
+			</section>
+			<div class="mt-5"></div>
+			<div class="columns">
+				<div class="column">
+					<div class="box mb-1">
+						<div class="columns">
+							<div class="column">
+								<div class="columns is-gapless">
+									<div class="column is-2">
+										<div class="mt-2">HP:&nbsp;</div>
+									</div>
+									<div class="column">
+										<input id="currentHP" class="input" type="text" onchange="update()"
+										oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+										/>
+									</div>
+									<div class="column is-2">
+										<div class="mt-2"></div>
+										<span>&nbsp;&nbsp;/&nbsp;</span>
+										<span id="maxHP">22</span>
+									</div>
+								</div>
+							</div>
+							<div class="vl"></div>
+							<div class="column">
+								<div class="columns is-gapless">
+									<div class="column is-2">
+										<div class="mt-2">Temp:&nbsp;</div>
+									</div>
+									<div class="column">
+										<input id="tempHP" class="input" type="text" onchange="update()"
+										oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+										/>
+									</div>
+								</div>
+							</div>
+							<div class="vl"></div>
+							<div class="column">
+								<div class="columns is-gapless">
+									<div class="column is-2">
+										<div class="mt-2">NL:&nbsp;</div>
+									</div>
+									<div class="column">
+										<input id="nlHP" class="input" type="text" onchange="update()"
+										oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+										/>
+									</div>
+								</div>
+							</div>
+						</div>
+					<progress id="hpBar" class="progress" value="10" max="20"></progress>
+				</div>
+				<div class="box mb-1">
+					<div class="columns">
+						<div class="column is-1">
+							<div class="mt-2"></div>
+							<span>AC:&nbsp;</span>
+							<span id="AC">10</span>
+						</div>
+						<div class="vl"></div>
+						<div class="column is-1">
+							<div class="mt-2"></div>
+							<span>T:&nbsp;</span>
+							<span id="touchAC">10</span>
+						</div>
+						<div class="vl"></div>
+						<div class="column is-1">
+							<div class="mt-2"></div>
+							<span>FF:&nbsp;</span>
+							<span id="ffAC">10</span>
+						</div>
+						<div class="vl"></div>
+						<div class="column">
+							<div class="columns is-gapless">
+								<div class="column is-7">
+									<div class="mt-2">Armor Bonus:&nbsp;</div>
+								</div>
+								<div class="column">
+									<input id="armorBonus" class="input" type="text" onchange="update()"
+									oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+									/>
+								</div>
+							</div>
+						</div>
+						<div class="vl"></div>
+						<div class="column">
+							<div class="columns is-gapless">
+								<div class="column is-7">
+									<div class="mt-2">Dodge Bonus:&nbsp;</div>
+								</div>
+								<div class="column">
+									<input id="dodgeBonus" class="input" type="text" onchange="update()"
+									oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+									/>
+								</div>
+							</div>
+						</div>
+						<div class="vl"></div>
+						<div class="column">
+							<div class="columns is-gapless">
+								<div class="column is-3">
+									<div class="mt-2">Init:&nbsp;</div>
+								</div>
+								<div class="column">
+									<input id="initBonus" class="input" type="text" onchange="update()"
+									oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+									/>
+								</div>
+								<div class="column is-4">
+										<div class="mt-2"></div>
+										<span>&nbsp;&nbsp;=&nbsp;</span>
+										<span id="init">10</span>
+								</div>
+							</div>
+						</div>
+						<div class="vl"></div>
+						<div class="column">
+							<div class="columns is-gapless">
+								<div class="column is-4">
+									<div class="mt-2">Speed:&nbsp;</div>
+								</div>
+								<div class="column">
+									<input id="speed" class="input" type="text" onchange="update()" />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="mt-5"></div>
+				<div class="columns">
+					<div class="column is-one-quarter">
+						<div class="card">
+							<footer class="card-footer">
+								<span class="card-footer-item">STR</span>
+								<div class="card-footer-item">
+									<input id="strScore" class="input is-rounded" type="text" onchange="update()" placeholder="10"
+									oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+									/>
+								</div>
+								<span id="strMod" class="card-footer-item">-</span>
+							</footer>
+						</div>
+						<div class="card">
+							<footer class="card-footer">
+								<span class="card-footer-item">DEX</span>
+								<div class="card-footer-item">
+									<input id="dexScore" class="input is-rounded" type="text" onchange="update()" placeholder="10"
+									oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+									/>
+								</div>
+								<span id="dexMod" class="card-footer-item">-</span>
+							</footer>
+						</div>
+						<div class="card">
+							<footer class="card-footer">
+								<span class="card-footer-item">CON</span>
+								<div class="card-footer-item">
+									<input id="conScore" class="input is-rounded" type="text" onchange="update()" placeholder="10"
+									oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+									/>
+								</div>
+								<span id="conMod" class="card-footer-item">-</span>
+							</footer>
+						</div>
+						<div class="card">
+							<footer class="card-footer">
+								<span class="card-footer-item">INT</span>
+								<div class="card-footer-item">
+									<input id="intScore" class="input is-rounded" type="text" onchange="update()" placeholder="10"
+									oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+									/>
+								</div>
+								<span id="intMod" class="card-footer-item">-</span>
+							</footer>
+						</div>
+						<div class="card">
+							<footer class="card-footer">
+								<span class="card-footer-item">WIS</span>
+								<div class="card-footer-item">
+									<input id="wisScore" class="input is-rounded" type="text" onchange="update()" placeholder="10"
+									oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+									/>
+								</div>
+								<span id="wisMod" class="card-footer-item">-</span>
+							</footer>
+						</div>
+						<div class="card">
+							<footer class="card-footer">
+								<span class="card-footer-item">CHA</span>
+								<div class="card-footer-item">
+									<input id="chaScore" class="input is-rounded" type="text" onchange="update()" placeholder="10"
+									oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+									/>
+								</div>
+								<span id="chaMod" class="card-footer-item">-</span>
+							</footer>
+						</div>
+					</div>
+					<div class="column">
+						Second column
+					</div>
+					<div class="column">
+						<button class="button is-primary is-large" onclick="doFunction();">Black</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script src="main.js"></script>
+<style>
+	.vl {
+	border-left: 1px solid #ededed;
+	height: is-size;
+	}
+</style>
 </html>
