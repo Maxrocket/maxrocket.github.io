@@ -142,6 +142,7 @@ function updateAbiScore() {
     setCookie("intScore", int)
     setCookie("wisScore", wis)
     setCookie("chaScore", cha)
+    
 }
 
 function updateHP() {
