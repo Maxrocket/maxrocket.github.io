@@ -306,6 +306,7 @@ function updateXP() {
       return a[0] - b[0];
     });
     eliteArray = [8, 10, 12, 13, 14, 15]
+    skillXPArray = [0, 0, 1, 0, 2, 3, 4, 6, 8]
 
     statXP = 0
     statIllegal = false
@@ -328,6 +329,45 @@ function updateXP() {
     }
     spentXP += statXP
     xpIllegal ||= statIllegal
+
+
+    saveXP = 0
+    saveIllegal = false
+    if (fortSaveXP > 8 || fortSaveXP == 1 || fortSaveXP == 3) {
+      document.getElementById("save-fort-exp").setAttribute("class", "input is-small is-danger");
+      saveIllegal = true
+    } else {
+      document.getElementById("save-fort-exp").setAttribute("class", "input is-small");
+      saveXP += skillXPArray[fortSaveXP]
+    }
+    if (refSaveXP > 8 || refSaveXP == 1 || refSaveXP == 3) {
+      document.getElementById("save-ref-exp").setAttribute("class", "input is-small is-danger");
+      saveIllegal = true
+    } else {
+      document.getElementById("save-ref-exp").setAttribute("class", "input is-small");
+      saveXP += skillXPArray[refSaveXP]
+    }
+    if (willSaveXP > 8 || willSaveXP == 1 || willSaveXP == 3) {
+      document.getElementById("save-will-exp").setAttribute("class", "input is-small is-danger");
+      saveIllegal = true
+    } else {
+      document.getElementById("save-will-exp").setAttribute("class", "input is-small");
+      saveXP += skillXPArray[willSaveXP]
+    }
+    if (saveIllegal) {
+      document.getElementById("saveXPText").setAttribute("style", "color: #f14668")
+      document.getElementById("saveXPText").innerHTML = "<strong>Saves:</strong> Invalid"
+    } else {
+      document.getElementById("saveXPText").setAttribute("style", "color: #363636")
+      document.getElementById("saveXPText").innerHTML = "<strong>Saves:</strong> " + saveXP + "xp"
+    }
+    if (fortSave || refSave || willSave) {
+      document.getElementById("goodSaveLabel").setAttribute("style", "color: #363636")
+    } else {
+      document.getElementById("goodSaveLabel").setAttribute("style", "color: #f14668")
+    }
+    spentXP += saveXP
+    xpIllegal ||= saveIllegal
 
 
     remainingXP = totalXP - spentXP
