@@ -333,21 +333,21 @@ function updateXP() {
 
     saveXP = 0
     saveIllegal = false
-    if (fortSaveXP > 8 || fortSaveXP == 1 || fortSaveXP == 3) {
+    if (fortSaveXP > 8 || fortSaveXP == 1 || fortSaveXP == 3 || skillXPArray[fortSaveXP] > level) {
       document.getElementById("save-fort-exp").setAttribute("class", "input is-small is-danger");
       saveIllegal = true
     } else {
       document.getElementById("save-fort-exp").setAttribute("class", "input is-small");
       saveXP += skillXPArray[fortSaveXP]
     }
-    if (refSaveXP > 8 || refSaveXP == 1 || refSaveXP == 3) {
+    if (refSaveXP > 8 || refSaveXP == 1 || refSaveXP == 3 || skillXPArray[refSaveXP] > level) {
       document.getElementById("save-ref-exp").setAttribute("class", "input is-small is-danger");
       saveIllegal = true
     } else {
       document.getElementById("save-ref-exp").setAttribute("class", "input is-small");
       saveXP += skillXPArray[refSaveXP]
     }
-    if (willSaveXP > 8 || willSaveXP == 1 || willSaveXP == 3) {
+    if (willSaveXP > 8 || willSaveXP == 1 || willSaveXP == 3 || skillXPArray[willSaveXP] > level) {
       document.getElementById("save-will-exp").setAttribute("class", "input is-small is-danger");
       saveIllegal = true
     } else {
