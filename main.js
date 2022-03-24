@@ -334,12 +334,13 @@ function updateXP() {
       return a[0] - b[0];
     });
     eliteArray = [8, 10, 12, 13, 14, 15]
+    capArray = [10, 12, 14, 16, 18, 20]
     skillXPArray = [0, 0, 1, 0, 2, 3, 4, 6, 8]
 
     statXP = 0
     statIllegal = false
     for (let i = 0; i < 6; i++) {
-      if (scores[i][0] < eliteArray[i] || scores[i][0] > 20) {
+      if (scores[i][0] < eliteArray[i] || scores[i][0] > capArray[i]) {
         document.getElementById(scores[i][1] + "Score").setAttribute("class", "input is-rounded is-danger");
         statIllegal = true
       } else {
