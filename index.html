@@ -6,10 +6,12 @@
 			<section class="hero is-primary">
 				<div class="hero-body">
 					<p class="title">
-						Hero Title
+						<input id="name" class="input is-primary" type="text" onchange="update()"/>
 					</p>
 					<p class="subtitle">
-						Hero subtitle
+						<input id="currentXP" class="input is-primary" type="text" onchange="update()"
+						oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+						/>
 					</p>
 				</div>
 			</section>
@@ -252,6 +254,16 @@
 								</tbody>
 							</table>
 						</div>
+						<div class="mt-5"></div>
+						<div class="box pt-2">
+							<div class="content">
+								<ul>
+									<li id="statXPText"></li>
+								</ul>
+								<p id="xpSpentText"></p>
+								<p id="xpRemainingText"></p>
+							</div>
+						</div>
 					</div>
 					<div class="column">
 						<div class="box p-0">
@@ -271,7 +283,9 @@
 						</div>
 					</div>
 					<div class="column">
-						<button class="button is-primary is-large" onclick="doFunction();">Black</button>
+						<div class="box">
+							<span>Feats Box</span>
+						</div>
 					</div>
 				</div>
 			</div>

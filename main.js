@@ -21,6 +21,9 @@ function getCookie(cname) {
   return "";
 }
 
+var name = getCookie("name")
+document.getElementById("name").value = name
+
 var strScore = getCookie("strScore")
 document.getElementById("strScore").value = strScore
 var dexScore = getCookie("dexScore")
@@ -49,7 +52,8 @@ var nlHP = getCookie("nlHP")
 document.getElementById("nlHP").value = nlHP
 var maxHP = 0
 
-var totalXP = 66
+var totalXP = getCookie("totalXP")
+document.getElementById("currentXP").value = totalXP
 var level = Math.floor(totalXP / 22)
 
 var armorBonus = getCookie("armorBonus")
@@ -86,85 +90,90 @@ for (let i = 0; i < skills.length; i++) {
   skillsFormat[i] = skill
 }
 
+function updateName() {
+    name = document.getElementById("name").value;
+    setCookie("name", name)
+}
+
 function updateAbiScore() {
-    str = document.getElementById("strScore").value;
-    if (str == "") {
-      document.getElementById("strMod").innerHTML = "0"
-    } else {
-      str = parseInt(str)
-      strMod = Math.floor((str - 10) / 2)
-      if (strMod > 0) {
-        document.getElementById("strMod").innerHTML = "+" + strMod
-      } else {
-        document.getElementById("strMod").innerHTML = strMod
-      }
+    strScore = document.getElementById("strScore").value;
+    if (strScore == "") {
+      strScore = 10
     }
-    dex = document.getElementById("dexScore").value;
-    if (dex == "") {
-      document.getElementById("dexMod").innerHTML = "0"
+    strScore = parseInt(strScore)
+    strMod = Math.floor((strScore - 10) / 2)
+    if (strMod > 0) {
+      document.getElementById("strMod").innerHTML = "+" + strMod
     } else {
-      dex = parseInt(dex)
-      dexMod = Math.floor((dex - 10) / 2)
-      if (dexMod > 0) {
-        document.getElementById("dexMod").innerHTML = "+" + dexMod
-      } else {
-        document.getElementById("dexMod").innerHTML = dexMod
-      }
+      document.getElementById("strMod").innerHTML = strMod
     }
-    con = document.getElementById("conScore").value;
-    if (con == "") {
-      document.getElementById("conMod").innerHTML = "0"
+
+    dexScore = document.getElementById("dexScore").value;
+    if (dexScore == "") {
+      dexScore = 10
+    }
+    dexScore = parseInt(dexScore)
+    dexMod = Math.floor((dexScore - 10) / 2)
+    if (dexMod > 0) {
+      document.getElementById("dexMod").innerHTML = "+" + dexMod
     } else {
-      con = parseInt(con)
-      conMod = Math.floor((con - 10) / 2)
-      if (conMod > 0) {
-        document.getElementById("conMod").innerHTML = "+" + conMod
-      } else {
-        document.getElementById("conMod").innerHTML = conMod
-      }
+      document.getElementById("dexMod").innerHTML = dexMod
     }
-    int = document.getElementById("intScore").value;
-    if (int == "") {
-      document.getElementById("intMod").innerHTML = "0"
+
+    conScore = document.getElementById("conScore").value;
+    if (conScore == "") {
+      conScore = 10
+    }
+    conScore = parseInt(conScore)
+    conMod = Math.floor((conScore - 10) / 2)
+    if (conMod > 0) {
+      document.getElementById("conMod").innerHTML = "+" + conMod
     } else {
-      int = parseInt(int)
-      intMod = Math.floor((int - 10) / 2)
-      if (intMod > 0) {
-        document.getElementById("intMod").innerHTML = "+" + intMod
-      } else {
-        document.getElementById("intMod").innerHTML = intMod
-      }
+      document.getElementById("conMod").innerHTML = conMod
     }
-    wis = document.getElementById("wisScore").value;
-    if (wis == "") {
-      document.getElementById("wisMod").innerHTML = "0"
+
+    intScore = document.getElementById("intScore").value;
+    if (intScore == "") {
+      intScore = 10
+    }
+    intScore = parseInt(intScore)
+    intMod = Math.floor((intScore - 10) / 2)
+    if (intMod > 0) {
+      document.getElementById("intMod").innerHTML = "+" + intMod
     } else {
-      wis = parseInt(wis)
-      wisMod = Math.floor((wis - 10) / 2)
-      if (wisMod > 0) {
-        document.getElementById("wisMod").innerHTML = "+" + wisMod
-      } else {
-        document.getElementById("wisMod").innerHTML = wisMod
-      }
+      document.getElementById("intMod").innerHTML = intMod
     }
-    cha = document.getElementById("chaScore").value;
-    if (cha == "") {
-      document.getElementById("chaMod").innerHTML = "0"
+
+    wisScore = document.getElementById("wisScore").value;
+    if (wisScore == "") {
+      wisScore = 10
+    }
+    wisScore = parseInt(wisScore)
+    wisMod = Math.floor((wisScore - 10) / 2)
+    if (wisMod > 0) {
+      document.getElementById("wisMod").innerHTML = "+" + wisMod
     } else {
-      cha = parseInt(cha)
-      chaMod = Math.floor((cha - 10) / 2)
-      if (chaMod > 0) {
-        document.getElementById("chaMod").innerHTML = "+" + chaMod
-      } else {
-        document.getElementById("chaMod").innerHTML = chaMod
-      }
+      document.getElementById("wisMod").innerHTML = wisMod
     }
-    setCookie("strScore", str)
-    setCookie("dexScore", dex)
-    setCookie("conScore", con)
-    setCookie("intScore", int)
-    setCookie("wisScore", wis)
-    setCookie("chaScore", cha)
+
+    chaScore = document.getElementById("chaScore").value;
+    if (chaScore == "") {
+      chaScore = 10
+    }
+    chaScore = parseInt(chaScore)
+    chaMod = Math.floor((chaScore - 10) / 2)
+    if (chaMod > 0) {
+      document.getElementById("chaMod").innerHTML = "+" + chaMod
+    } else {
+      document.getElementById("chaMod").innerHTML = chaMod
+    }
+
+    setCookie("strScore", strScore)
+    setCookie("dexScore", dexScore)
+    setCookie("conScore", conScore)
+    setCookie("intScore", intScore)
+    setCookie("wisScore", wisScore)
+    setCookie("chaScore", chaScore)
 
 }
 
@@ -281,13 +290,74 @@ function updateSave() {
     setCookie("willSaveXP", willSaveXP)
 }
 
+function updateXP() {
+    totalXP = document.getElementById("currentXP").value;
+    if (totalXP == "") {
+      totalXP = 0
+    }
+    setCookie("totalXP", totalXP)
+    level = Math.max(Math.floor(totalXP / 22), 1)
+
+    spentXP = 0
+    xpIllegal = false
+
+    scores = [[strScore, "str"], [dexScore, "dex"], [conScore, "con"], [intScore,"int"], [wisScore,"wis"], [chaScore, "cha"]]
+    scores.sort(function(a, b) {
+      return a[0] - b[0];
+    });
+    eliteArray = [8, 10, 12, 13, 14, 15]
+
+    statXP = 0
+    statIllegal = false
+    for (let i = 0; i < 6; i++) {
+      if (scores[i][0] < eliteArray[i] || scores[i][0] > 20) {
+        document.getElementById(scores[i][1] + "Score").setAttribute("class", "input is-rounded is-danger");
+        statIllegal = true
+      } else {
+        document.getElementById(scores[i][1] + "Score").setAttribute("class", "input is-rounded");
+        statXP += (scores[i][0] - eliteArray[i]) * 3
+      }
+    }
+
+    if (statIllegal) {
+      document.getElementById("statXPText").setAttribute("style", "color: #f14668")
+      document.getElementById("statXPText").innerHTML = "<strong>Stats:</strong> Invalid"
+    } else {
+      document.getElementById("statXPText").setAttribute("style", "color: #363636")
+      document.getElementById("statXPText").innerHTML = "<strong>Stats:</strong> " + statXP + "xp"
+    }
+    spentXP += statXP
+    xpIllegal ||= statIllegal
+
+
+    remainingXP = totalXP - spentXP
+    if (xpIllegal) {
+      document.getElementById("xpSpentText").setAttribute("style", "color: #f14668")
+      document.getElementById("xpSpentText").innerHTML = "<strong>Spent XP:</strong> Invalid"
+      document.getElementById("xpRemainingText").innerHTML = "<strong>Remaining XP:</strong> Invalid"
+    } else {
+      document.getElementById("xpSpentText").setAttribute("style", "color: #363636")
+      document.getElementById("xpSpentText").innerHTML = "<strong>Spent XP:</strong> " + spentXP + "xp"
+      document.getElementById("xpRemainingText").innerHTML = "<strong>Remaining XP:</strong> " + remainingXP + "xp"
+    }
+    if (xpIllegal || remainingXP < 0) {
+      document.getElementById("xpRemainingText").setAttribute("style", "color: #f14668")
+    } else {
+      document.getElementById("xpRemainingText").setAttribute("style", "color: #363636")
+    }
+
+}
+
 function update() {
+    updateXP()
+    updateName()
     updateAbiScore()
     updateHP()
     updateAC()
     updateInit()
     updateSpeed()
     updateSave()
+    updateXP()
 }
 
 table = document.getElementById("skill-table")
