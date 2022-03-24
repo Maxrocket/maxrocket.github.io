@@ -96,12 +96,22 @@ if (skillValueCookie != "") {
   skillValues = JSON.parse(skillValueCookie)
 }
 
-var numberOfFeats = 0
+var numberOfFeats = getCookie("numberOfFeats")
+if (numberOfFeats == "") {
+  numberOfFeats = 0
+}
 
 featValueCookie = getCookie("featValues")
 var featValues = {}
 if (featValueCookie != "") {
   featValues = JSON.parse(featValueCookie)
+  for (let i = 0; i < numberOfFeats; i++) {
+    createNewFeat(i)
+    feat = document.getElementById("feat-" + i)
+    feat.getElementsByClassName("feat-name")[0].value = featValues[i]["featName"]
+    feat.getElementsByClassName("feat-xp")[0].value = featValues[i]["featXp"]
+    feat.getElementsByClassName("feat-description")[0].value = featValues[i]["featDesc"]
+  }
 }
 
 function updateName() {
@@ -460,15 +470,23 @@ function updateXP() {
 }
 
 function updateFeats() {
+  featValues = {}
   for (let i = 0; i < numberOfFeats; i++) {
+    featValues[i] = {}
     feat = document.getElementById("feat-" + i)
     featName = feat.getElementsByClassName("feat-name")[0].value
+    featValues[i]["featName"] = featName
     feat.getElementsByClassName("feat-name")[0].innerHTML = featName
     featXp = feat.getElementsByClassName("feat-xp")[0].value
+    featValues[i]["featXp"] = featXp
     feat.getElementsByClassName("feat-xp")[0].innerHTML = featXp
     featDesc = feat.getElementsByClassName("feat-description")[0].value
+    featValues[i]["featDesc"] = featDesc
     feat.getElementsByClassName("feat-description")[0].innerHTML = featDesc
   }
+
+  setCookie("featValues", JSON.stringify(featValues))
+  setCookie("numberOfFeats", numberOfFeats)
 
   if (numberOfFeats > 0) {
     for (let i = 0; i < numberOfFeats; i++) {
@@ -512,7 +530,6 @@ if (JSON.stringify(skillValues) != "{}") {
 }
 
 var maxHeight = document.getElementById('skill-table-box').offsetHeight - 20
-console.log(maxHeight)
 document.getElementById('feat-box-box').setAttribute("style", "overflow-y: auto; max-height: " + maxHeight + "px;")
 
 update()
@@ -524,17 +541,24 @@ function editFeatId(feat, newIndex) {
   feat.getElementsByClassName("deleteFunc")[0].setAttribute("onclick", "deleteFeat(" + newIndex + ")")
 }
 
-function createNewFeat() {
+function createNewFeat(index) {
+  if (index == -1) {
+    ind = numberOfFeats
+    numberOfFeats++
+  } else {
+    ind = index
+  }
   feat = document.getElementById("feat-template").cloneNode(true)
-  feat.setAttribute("id", "feat-" + numberOfFeats)
+  feat.setAttribute("id", "feat-" + ind)
   feat.removeAttribute("style")
-  editFeatId(feat, numberOfFeats)
-  numberOfFeats++
+  editFeatId(feat, ind)
 
   featBox = document.getElementById("feat-box")
   featBox.appendChild(feat)
 
-  update()
+  if (index == -1) {
+    update()
+  }
 }
 
 function deleteFeat(index) {
