@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<body>
 		<div class="container">
 			<section class="hero is-primary">
@@ -261,7 +262,7 @@
 									<li id="statXPText"></li>
 									<li id="saveXPText"></li>
 									<li id="skillXPText"></li>
-									<!-- <li id="featXPText"></li> -->
+									<li id="featXPText"></li>
 								</ul>
 								<p id="xpSpentText"></p>
 								<p id="xpRemainingText"></p>
@@ -269,7 +270,7 @@
 						</div>
 					</div>
 					<div class="column">
-						<div class="box p-0">
+						<div id="skill-table-box" class="box p-0">
 							<table class="table is-bordered is-striped">
 								<thead>
 									<tr>
@@ -286,38 +287,71 @@
 						</div>
 					</div>
 					<div class="column">
-						<div class="box">
-							<span>Feats Box</span>
+						<div id="feat-box-box" class="box" style="overflow-y: auto; max-height: 500px;">
+							<div id="feat-box">
+								<div id="feat-template" class="box mb-2" style="display: none;">
+									<div class="columns is-multiline">
+										<div class="column is-6">
+											<input class="input is-small feat-name" type="text" onchange="update()" placeholder="Feat Name">
+										</div>
+										<div class="column is-1 pl-0">
+											<div class="mt-1">XP:</div>
+										</div>
+										<div class="column is-1 pl-0 pr-0">
+											<input class="input is-small feat-xp" type="text" onchange="update()" placeholder="0"
+											oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+											/>
+										</div>
+										<div class="column is-3 pl-1">
+											<div class="field has-addons">
+												<p class="control">
+													<button class="button is-small decrement" onclick="decrementFeat()"><i class="fa fa-plus"></i></button>
+												</p>
+												<p class="control">
+													<button class="button is-small increment" onclick="incrementFeat()"><i class="fa fa-minus"></i></button>
+												</p>
+												<p class="control">
+													<button class="button is-small is-danger is-light deleteFunc" onclick="deleteFeat()"><i class="fa fa-trash"></i></button>
+												</p>
+											</div>
+										</div>
+										<div class="column pt-0">
+											<textarea class="textarea is-small feat-description" onchange="update()" placeholder="Feat Description"></textarea>
+										</div>
+									</div>
+								</div>
+							</div>
+							<button class="button is-primary is-small" onclick="createNewFeat()">Add New Feat</button>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-			<footer class="footer">
-				<div class="content has-text-centered">
-					<p>Version 1.0 SimplePathfinder Character Sheet by Maxime Reid
+		<footer class="footer">
+			<div class="content has-text-centered">
+				<p>Version 2.0 SimplePathfinder Character Sheet by Maxime Reid
 				</div>
 			</footer>
-	</div>
-</body>
-<script src="main.js"></script>
-<style>
-	table, td, th {
-	border: 1px solid #DDD;
-	text-align:center;
-	width:100%;
-	}
-	th
-	{
-	background:#DDEEEE;
-	}
-	table {
-	width: 100%;
-	border-collapse: collapse;
-	}
-	.vl {
-	border-left: 1px solid #ededed;
-	height: is-size;
-	}
-</style>
+		</div>
+	</body>
+	<script src="main.js"></script>
+	<style>
+		table, td, th {
+		border: 1px solid #DDD;
+		text-align:center;
+		width:100%;
+		}
+		th
+		{
+		background:#DDEEEE;
+		}
+		table {
+		width: 100%;
+		border-collapse: collapse;
+		}
+		.vl {
+		border-left: 1px solid #ededed;
+		height: is-size;
+		}
+	</style>
 </html>

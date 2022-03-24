@@ -96,6 +96,14 @@ if (skillValueCookie != "") {
   skillValues = JSON.parse(skillValueCookie)
 }
 
+var numberOfFeats = 0
+
+featValueCookie = getCookie("featValues")
+var featValues = {}
+if (featValueCookie != "") {
+  featValues = JSON.parse(featValueCookie)
+}
+
 function updateName() {
     name = document.getElementById("name").value;
     setCookie("name", name)
@@ -451,6 +459,32 @@ function updateXP() {
 
 }
 
+function updateFeats() {
+  for (let i = 0; i < numberOfFeats; i++) {
+    feat = document.getElementById("feat-" + i)
+    featName = feat.getElementsByClassName("feat-name")[0].value
+    feat.getElementsByClassName("feat-name")[0].innerHTML = featName
+    featXp = feat.getElementsByClassName("feat-xp")[0].value
+    feat.getElementsByClassName("feat-xp")[0].innerHTML = featXp
+    featDesc = feat.getElementsByClassName("feat-description")[0].value
+    feat.getElementsByClassName("feat-description")[0].innerHTML = featDesc
+  }
+
+  if (numberOfFeats > 0) {
+    for (let i = 0; i < numberOfFeats; i++) {
+      feat = document.getElementById("feat-" + i)
+      feat.getElementsByClassName("decrement")[0].removeAttribute("disabled")
+      feat.getElementsByClassName("increment")[0].removeAttribute("disabled")
+    }
+
+    topFeat = document.getElementById("feat-0")
+    topFeat.getElementsByClassName("decrement")[0].setAttribute("disabled", "")
+
+    bottomFeat = document.getElementById("feat-" + (numberOfFeats - 1))
+    bottomFeat.getElementsByClassName("increment")[0].setAttribute("disabled", "")
+  }
+}
+
 function update() {
     updateXP()
     updateName()
@@ -461,6 +495,7 @@ function update() {
     updateSpeed()
     updateSave()
     updateSkills()
+    updateFeats()
     updateXP()
 }
 
@@ -476,4 +511,85 @@ if (JSON.stringify(skillValues) != "{}") {
   }
 }
 
+var maxHeight = document.getElementById('skill-table-box').offsetHeight - 20
+console.log(maxHeight)
+document.getElementById('feat-box-box').setAttribute("style", "overflow-y: auto; max-height: " + maxHeight + "px;")
+
 update()
+
+function editFeatId(feat, newIndex) {
+  feat.setAttribute("id", "feat-" + newIndex)
+  feat.getElementsByClassName("decrement")[0].setAttribute("onclick", "decrementFeat(" + newIndex + ")")
+  feat.getElementsByClassName("increment")[0].setAttribute("onclick", "incrementFeat(" + newIndex + ")")
+  feat.getElementsByClassName("deleteFunc")[0].setAttribute("onclick", "deleteFeat(" + newIndex + ")")
+}
+
+function createNewFeat() {
+  feat = document.getElementById("feat-template").cloneNode(true)
+  feat.setAttribute("id", "feat-" + numberOfFeats)
+  feat.removeAttribute("style")
+  editFeatId(feat, numberOfFeats)
+  numberOfFeats++
+
+  featBox = document.getElementById("feat-box")
+  featBox.appendChild(feat)
+
+  update()
+}
+
+function deleteFeat(index) {
+  document.getElementById("feat-" + index).remove();
+  for (let i = index + 1; i < numberOfFeats; i++) {
+    n = i - 1
+    editFeatId(document.getElementById("feat-" + i), n)
+  }
+  numberOfFeats--
+
+  update()
+}
+
+function incrementFeat(index) {
+  currentFeat = document.getElementById("feat-" + index)
+  currentFeatName = currentFeat.getElementsByClassName("feat-name")[0].value
+  currentFeatXP = currentFeat.getElementsByClassName("feat-xp")[0].value
+  currentFeatDesc = currentFeat.getElementsByClassName("feat-description")[0].value
+  aboveFeat = document.getElementById("feat-" + (index + 1))
+  aboveFeatName = aboveFeat.getElementsByClassName("feat-name")[0].value
+  aboveFeatXP = aboveFeat.getElementsByClassName("feat-xp")[0].value
+  aboveFeatDesc = aboveFeat.getElementsByClassName("feat-description")[0].value
+
+  currentFeat.getElementsByClassName("feat-name")[0].value = aboveFeatName
+  currentFeat.getElementsByClassName("feat-xp")[0].value = aboveFeatXP
+  currentFeat.getElementsByClassName("feat-description")[0].value = aboveFeatDesc
+  aboveFeat.getElementsByClassName("feat-name")[0].value = currentFeatName
+  aboveFeat.getElementsByClassName("feat-xp")[0].value = currentFeatXP
+  aboveFeat.getElementsByClassName("feat-description")[0].value = currentFeatDesc
+
+  editFeatId(currentFeat, index)
+  editFeatId(aboveFeat, (index + 1))
+
+  update()
+}
+
+function decrementFeat(index) {
+  currentFeat = document.getElementById("feat-" + index)
+  currentFeatName = currentFeat.getElementsByClassName("feat-name")[0].value
+  currentFeatXP = currentFeat.getElementsByClassName("feat-xp")[0].value
+  currentFeatDesc = currentFeat.getElementsByClassName("feat-description")[0].value
+  aboveFeat = document.getElementById("feat-" + (index - 1))
+  aboveFeatName = aboveFeat.getElementsByClassName("feat-name")[0].value
+  aboveFeatXP = aboveFeat.getElementsByClassName("feat-xp")[0].value
+  aboveFeatDesc = aboveFeat.getElementsByClassName("feat-description")[0].value
+
+  currentFeat.getElementsByClassName("feat-name")[0].value = aboveFeatName
+  currentFeat.getElementsByClassName("feat-xp")[0].value = aboveFeatXP
+  currentFeat.getElementsByClassName("feat-description")[0].value = aboveFeatDesc
+  aboveFeat.getElementsByClassName("feat-name")[0].value = currentFeatName
+  aboveFeat.getElementsByClassName("feat-xp")[0].value = currentFeatXP
+  aboveFeat.getElementsByClassName("feat-description")[0].value = currentFeatDesc
+
+  editFeatId(currentFeat, index)
+  editFeatId(aboveFeat, (index - 1))
+
+  update()
+}
