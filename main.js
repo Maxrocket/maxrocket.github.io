@@ -451,6 +451,18 @@ function updateXP() {
     xpIllegal ||= skillIllegal
 
 
+    featXP = 0
+    if (JSON.stringify(skillValues) != "{}") {
+      for (let i = 0; i < numberOfFeats; i++) {
+        if (featValues[i] != null) {
+          featXP += parseInt(featValues[i]["featXp"])
+        }
+      }
+    }
+    document.getElementById("featXPText").innerHTML = "<strong>Feats:</strong> " + featXP + "xp"
+    spentXP += featXP
+
+
     remainingXP = totalXP - spentXP
     if (xpIllegal) {
       document.getElementById("xpSpentText").setAttribute("style", "color: #f14668")
@@ -478,6 +490,9 @@ function updateFeats() {
     featValues[i]["featName"] = featName
     feat.getElementsByClassName("feat-name")[0].innerHTML = featName
     featXp = feat.getElementsByClassName("feat-xp")[0].value
+    if (featXp == "") {
+      featXp = 0
+    }
     featValues[i]["featXp"] = featXp
     feat.getElementsByClassName("feat-xp")[0].innerHTML = featXp
     featDesc = feat.getElementsByClassName("feat-description")[0].value
