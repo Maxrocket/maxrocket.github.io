@@ -64,11 +64,11 @@ var speed = getCookie("speed")
 document.getElementById("speed").value = speed
 
 var fortSave = getCookie("fortSave")
-document.getElementById("save-fort-cb").checked = fortSave
+document.getElementById("save-fort-cb").checked = (fortSave === 'true')
 var refSave = getCookie("refSave")
-document.getElementById("save-ref-cb").checked = refSave
+document.getElementById("save-ref-cb").checked = (refSave === 'true')
 var willSave = getCookie("willSave")
-document.getElementById("save-will-cb").checked = willSave
+document.getElementById("save-will-cb").checked = (willSave === 'true')
 
 var fortSaveXP = getCookie("fortSaveXP")
 document.getElementById("save-fort-exp").value = fortSaveXP
@@ -76,6 +76,15 @@ var refSaveXP = getCookie("refSaveXP")
 document.getElementById("save-ref-exp").value = refSaveXP
 var willSaveXP = getCookie("willSaveXP")
 document.getElementById("save-will-exp").value = willSaveXP
+
+var skills = ["Acrobatics", "Appraise", "Bluff", "Blood Magic", "Climb", "Craft", "Craft Homunculus", "Diplomacy", "Disable Device", "Disguise", "Escape Artist", "Fly", "Handle Animal", "Heal", "Intimidate", "Linguistic", "Perception", "Perform", "Profession", "Ride", "Ritual", "Sense Motive", "Slight of Hand", "Sorcery", "Spellcraft", "Stealth", "Survival", "Swim", "Use Magic Item"]
+var skillsFormat = []
+for (let i = 0; i < skills.length; i++) {
+  skill = skills[i]
+  skill = skill.toLowerCase()
+  skill = skill.replace(/\s/g, '-');
+  skillsFormat[i] = skill
+}
 
 function updateAbiScore() {
     str = document.getElementById("strScore").value;
@@ -270,8 +279,6 @@ function updateSave() {
     document.getElementById("save-will-mod").innerHTML = willMod
     setCookie("willSave", willSave)
     setCookie("willSaveXP", willSaveXP)
-
-
 }
 
 function update() {
@@ -281,6 +288,11 @@ function update() {
     updateInit()
     updateSpeed()
     updateSave()
+}
+
+table = document.getElementById("skill-table")
+for (let i = 0; i < skills.length; i++) {
+    table.innerHTML += "<tr>\n<td>" + skills[i] + "</td>\n<td id=\"skill-" + skillsFormat[i] + "-stat\">0</td>\n<td><input id=\"skill-" + skillsFormat[i] + "-exp\" class=\"input is-small\" type=\"text\" onchange=\"update()\" placeholder=\"0\"\noninput=\"this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');\"\n/></td>\n<td><input id=\"skill-" + skillsFormat[i] + "-cb\" type=\"checkbox\" onchange=\"update()\"></td>\n<td id=\"skill-" + skillsFormat[i] + "-mod\">0</td>\n</tr>"
 }
 
 update()

@@ -226,8 +226,8 @@
 										<td>Fort</td>
 										<td id="save-fort-stat">0</td>
 										<td><input id="save-fort-exp" class="input is-small" type="text" onchange="update()" placeholder="0"
-												oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
-												/></td>
+											oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+										/></td>
 										<td><input id="save-fort-cb" type="checkbox" onchange="update()"></td>
 										<td id="save-fort-mod">0</td>
 									</tr>
@@ -235,8 +235,8 @@
 										<td>Ref</td>
 										<td id="save-ref-stat">0</td>
 										<td><input id="save-ref-exp" class="input is-small" type="text" onchange="update()" placeholder="0"
-												oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
-												/></td>
+											oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+										/></td>
 										<td><input id="save-ref-cb" type="checkbox" onchange="update()"></td>
 										<td id="save-ref-mod">0</td>
 									</tr>
@@ -244,8 +244,8 @@
 										<td>Will</td>
 										<td id="save-will-stat">0</td>
 										<td><input id="save-will-exp" class="input is-small" type="text" onchange="update()" placeholder="0"
-												oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
-												/></td>
+											oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+										/></td>
 										<td><input id="save-will-cb" type="checkbox" onchange="update()"></td>
 										<td id="save-will-mod">0</td>
 									</tr>
@@ -254,7 +254,21 @@
 						</div>
 					</div>
 					<div class="column">
-						Second column
+						<div class="box p-0">
+							<table class="table is-bordered is-striped">
+								<thead>
+									<tr>
+										<th>Skill</th>
+										<th>Stat</th>
+										<th>Exp</th>
+										<th>CS?</th>
+										<th>+</th>
+									</tr>
+								</thead>
+								<tbody id="skill-table">
+								</tbody>
+							</table>
+						</div>
 					</div>
 					<div class="column">
 						<button class="button is-primary is-large" onclick="doFunction();">Black</button>
