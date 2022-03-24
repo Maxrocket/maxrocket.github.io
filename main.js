@@ -81,10 +81,10 @@ document.getElementById("save-ref-exp").value = refSaveXP
 var willSaveXP = getCookie("willSaveXP")
 document.getElementById("save-will-exp").value = willSaveXP
 
-var skills = ["Acrobatics", "Appraise", "Bluff", "Blood Magic", "Climb", "Craft", "Craft Homunculus", "Diplomacy", "Disable Device", "Disguise", "Escape Artist", "Fly", "Handle Animal", "Heal", "Intimidate", "Linguistic", "Perception", "Perform", "Profession", "Ride", "Ritual", "Sense Motive", "Slight of Hand", "Sorcery", "Spellcraft", "Stealth", "Survival", "Swim", "Use Magic Item"]
+var skills = [["Acrobatics", 1], ["Appraise", 3], ["Bluff", 5], ["Blood Magic", 3], ["Climb", 0], ["Craft", 3], ["Craft Homunculus", 3], ["Diplomacy", 5], ["Disable Device", 1], ["Disguise", 5], ["Escape Artist", 1], ["Fly", 1], ["Handle Animal", 5], ["Heal", 4], ["Intimidate", 5], ["Linguistic", 3], ["Perception", 4], ["Perform", 5], ["Profession", 4], ["Ride", 1], ["Ritual", 3], ["Sense Motive", 5], ["Slight of Hand", 1], ["Sorcery", 5], ["Spellcraft", 3], ["Stealth", 1], ["Survival", 4], ["Swim", 0], ["Use Magic Item", 5]]
 var skillsFormat = []
 for (let i = 0; i < skills.length; i++) {
-  skill = skills[i]
+  skill = skills[i][0]
   skill = skill.toLowerCase()
   skill = skill.replace(/\s/g, '-');
   skillsFormat[i] = skill
@@ -290,6 +290,10 @@ function updateSave() {
     setCookie("willSaveXP", willSaveXP)
 }
 
+function updateSkills() {
+
+}
+
 function updateXP() {
     totalXP = document.getElementById("currentXP").value;
     if (totalXP == "") {
@@ -397,12 +401,13 @@ function update() {
     updateInit()
     updateSpeed()
     updateSave()
+    updateSkills()
     updateXP()
 }
 
 table = document.getElementById("skill-table")
 for (let i = 0; i < skills.length; i++) {
-    table.innerHTML += "<tr>\n<td>" + skills[i] + "</td>\n<td id=\"skill-" + skillsFormat[i] + "-stat\">0</td>\n<td><input id=\"skill-" + skillsFormat[i] + "-exp\" class=\"input is-small\" type=\"text\" onchange=\"update()\" placeholder=\"0\"\noninput=\"this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');\"\n/></td>\n<td><input id=\"skill-" + skillsFormat[i] + "-cb\" type=\"checkbox\" onchange=\"update()\"></td>\n<td id=\"skill-" + skillsFormat[i] + "-mod\">0</td>\n</tr>"
+    table.innerHTML += "<tr>\n<td>" + skills[i][0] + "</td>\n<td id=\"skill-" + skillsFormat[i] + "-stat\">0</td>\n<td><input id=\"skill-" + skillsFormat[i] + "-exp\" class=\"input is-small\" type=\"text\" onchange=\"update()\" placeholder=\"0\"\noninput=\"this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');\"\n/></td>\n<td><input id=\"skill-" + skillsFormat[i] + "-cb\" type=\"checkbox\" onchange=\"update()\"></td>\n<td id=\"skill-" + skillsFormat[i] + "-mod\">0</td>\n</tr>"
 }
 
 update()
