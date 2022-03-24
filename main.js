@@ -401,17 +401,19 @@ function updateXP() {
     skillXP = 0
     skillIllegal = false
     classSkillCount = 0
-    for (let i = 0; i < skills.length; i++) {
-      skillValueXP = skillValues[skillsFormat[i]]["skillXp"]
-      if (skillValues[skillsFormat[i]]["skillClass"]) {
-        classSkillCount++
-      }
-      if (skillValueXP > 8 || skillValueXP == 1 || skillValueXP == 3 || skillXPArray[skillValueXP] > level) {
-        document.getElementById("skill-" + skillsFormat[i] + "-exp").setAttribute("class", "input is-small is-danger");
-        skillIllegal = true
-      } else {
-        document.getElementById("skill-" + skillsFormat[i] + "-exp").setAttribute("class", "input is-small");
-        skillXP += skillXPArray[skillValueXP]
+    if (JSON.stringify(skillValues) != "{}") {
+      for (let i = 0; i < skills.length; i++) {
+        skillValueXP = skillValues[skillsFormat[i]]["skillXp"]
+        if (skillValues[skillsFormat[i]]["skillClass"]) {
+          classSkillCount++
+        }
+        if (skillValueXP > 8 || skillValueXP == 1 || skillValueXP == 3 || skillXPArray[skillValueXP] > level) {
+          document.getElementById("skill-" + skillsFormat[i] + "-exp").setAttribute("class", "input is-small is-danger");
+          skillIllegal = true
+        } else {
+          document.getElementById("skill-" + skillsFormat[i] + "-exp").setAttribute("class", "input is-small");
+          skillXP += skillXPArray[skillValueXP]
+        }
       }
     }
     if (skillIllegal) {
