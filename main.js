@@ -90,6 +90,12 @@ for (let i = 0; i < skills.length; i++) {
   skillsFormat[i] = skill
 }
 
+skillValueCookie = getCookie("skillValues")
+var skillValues = {}
+if (skillValueCookie != "") {
+  skillValues = JSON.parse(skillValueCookie)
+}
+
 function updateName() {
     name = document.getElementById("name").value;
     setCookie("name", name)
@@ -291,7 +297,25 @@ function updateSave() {
 }
 
 function updateSkills() {
+    skillValues = {}
+    statArray = [strMod, dexMod, conMod, intMod, wisMod, chaMod]
 
+    for (let i = 0; i < skills.length; i++) {
+      skillValues[skillsFormat[i]] = {}
+      skillValues[skillsFormat[i]]["skillClass"] = document.getElementById("skill-" + skillsFormat[i] + "-cb").checked;
+      skillValues[skillsFormat[i]]["skillXp"] = document.getElementById("skill-" + skillsFormat[i] + "-exp").value;
+      if (skillValues[skillsFormat[i]]["skillXp"] == "") {
+        skillValues[skillsFormat[i]]["skillXp"] = 0
+      }
+      document.getElementById("skill-" + skillsFormat[i] + "-stat").innerHTML = statArray[skills[i][1]]
+      skillMod = statArray[skills[i][1]] + parseInt(skillValues[skillsFormat[i]]["skillXp"])
+      if (skillValues[skillsFormat[i]]["skillClass"]) {
+        skillMod += 2
+      }
+      document.getElementById("skill-" + skillsFormat[i] + "-mod").innerHTML = skillMod
+    }
+
+    setCookie("skillValues", JSON.stringify(skillValues))
 }
 
 function updateXP() {
@@ -374,6 +398,38 @@ function updateXP() {
     xpIllegal ||= saveIllegal
 
 
+    skillXP = 0
+    skillIllegal = false
+    classSkillCount = 0
+    for (let i = 0; i < skills.length; i++) {
+      skillValueXP = skillValues[skillsFormat[i]]["skillXp"]
+      if (skillValues[skillsFormat[i]]["skillClass"]) {
+        classSkillCount++
+      }
+      if (skillValueXP > 8 || skillValueXP == 1 || skillValueXP == 3 || skillXPArray[skillValueXP] > level) {
+        document.getElementById("skill-" + skillsFormat[i] + "-exp").setAttribute("class", "input is-small is-danger");
+        skillIllegal = true
+      } else {
+        document.getElementById("skill-" + skillsFormat[i] + "-exp").setAttribute("class", "input is-small");
+        skillXP += skillXPArray[skillValueXP]
+      }
+    }
+    if (skillIllegal) {
+      document.getElementById("skillXPText").setAttribute("style", "color: #f14668")
+      document.getElementById("skillXPText").innerHTML = "<strong>Skills:</strong> Invalid"
+    } else {
+      document.getElementById("skillXPText").setAttribute("style", "color: #363636")
+      document.getElementById("skillXPText").innerHTML = "<strong>Skills:</strong> " + skillXP + "xp"
+    }
+    if (classSkillCount >= 3) {
+      document.getElementById("classSkillLabel").setAttribute("style", "color: #363636")
+    } else {
+      document.getElementById("classSkillLabel").setAttribute("style", "color: #f14668")
+    }
+    spentXP += skillXP
+    xpIllegal ||= skillIllegal
+
+
     remainingXP = totalXP - spentXP
     if (xpIllegal) {
       document.getElementById("xpSpentText").setAttribute("style", "color: #f14668")
@@ -408,6 +464,13 @@ function update() {
 table = document.getElementById("skill-table")
 for (let i = 0; i < skills.length; i++) {
     table.innerHTML += "<tr>\n<td>" + skills[i][0] + "</td>\n<td id=\"skill-" + skillsFormat[i] + "-stat\">0</td>\n<td><input id=\"skill-" + skillsFormat[i] + "-exp\" class=\"input is-small\" type=\"text\" onchange=\"update()\" placeholder=\"0\"\noninput=\"this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');\"\n/></td>\n<td><input id=\"skill-" + skillsFormat[i] + "-cb\" type=\"checkbox\" onchange=\"update()\"></td>\n<td id=\"skill-" + skillsFormat[i] + "-mod\">0</td>\n</tr>"
+}
+
+if (JSON.stringify(skillValues) != "{}") {
+  for (let i = 0; i < skills.length; i++) {
+    document.getElementById("skill-" + skillsFormat[i] + "-cb").checked = skillValues[skillsFormat[i]]["skillClass"]
+    document.getElementById("skill-" + skillsFormat[i] + "-exp").value = skillValues[skillsFormat[i]]["skillXp"]
+  }
 }
 
 update()
