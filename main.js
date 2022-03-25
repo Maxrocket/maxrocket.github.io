@@ -81,7 +81,7 @@ document.getElementById("save-ref-exp").value = refSaveXP
 var willSaveXP = getCookie("willSaveXP")
 document.getElementById("save-will-exp").value = willSaveXP
 
-var skills = [["Acrobatics", 1], ["Appraise", 3], ["Bluff", 5], ["Blood Magic", 3], ["Climb", 0], ["Craft", 3], ["Craft Homunculus", 3], ["Diplomacy", 5], ["Disable Device", 1], ["Disguise", 5], ["Escape Artist", 1], ["Fly", 1], ["Handle Animal", 5], ["Heal", 4], ["Intimidate", 5], ["Linguistic", 3], ["Perception", 4], ["Perform", 5], ["Profession", 4], ["Ride", 1], ["Ritual", 3], ["Sense Motive", 5], ["Slight of Hand", 1], ["Sorcery", 5], ["Spellcraft", 3], ["Stealth", 1], ["Survival", 4], ["Swim", 0], ["Use Magic Item", 5]]
+var skills = [["Acrobatics", 1], ["Appraise", 3], ["Bluff", 5], ["Blood Magic", 3], ["Climb", 0], ["Craft", 3], ["Craft Homunculus", 3], ["Diplomacy", 5], ["Disable Device", 1], ["Disguise", 5], ["Escape Artist", 1], ["Fly", 1], ["Handle Animal", 5], ["Heal", 3], ["Intimidate", 5], ["Linguistic", 3], ["Perception", 4], ["Perform", 5], ["Profession", 4], ["Ride", 1], ["Ritual", 3], ["Sense Motive", 5], ["Slight of Hand", 1], ["Sorcery", 5], ["Spellcraft", 3], ["Stealth", 1], ["Survival", 4], ["Swim", 0], ["Use Magic Item", 5]]
 var skillsFormat = []
 for (let i = 0; i < skills.length; i++) {
   skill = skills[i][0]
