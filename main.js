@@ -60,6 +60,8 @@ var armorBonus = getCookie("armorBonus")
 document.getElementById("armorBonus").value = armorBonus
 var dodgeBonus = getCookie("dodgeBonus")
 document.getElementById("dodgeBonus").value = dodgeBonus
+var acBonus = getCookie("acBonus")
+document.getElementById("acBonus").value = acBonus
 
 var initBonus = getCookie("initBonus")
 document.getElementById("initBonus").value = initBonus
@@ -234,10 +236,14 @@ function updateAC() {
     if (dodgeBonus == "") {
       dodgeBonus = 0
     }
+    acBonus = document.getElementById("acBonus").value;
+    if (acBonus == "") {
+      acBonus = 0
+    }
 
-    AC = 10 + dexMod + parseInt(armorBonus) + parseInt(dodgeBonus)
-    TAC = 10 + dexMod + parseInt(dodgeBonus)
-    FFAC = 10 + parseInt(armorBonus)
+    AC = 10 + dexMod + parseInt(armorBonus) + parseInt(dodgeBonus) + parseInt(acBonus)
+    TAC = 10 + dexMod + parseInt(dodgeBonus) + parseInt(acBonus)
+    FFAC = 10 + parseInt(armorBonus) + parseInt(acBonus)
 
     document.getElementById("AC").innerHTML = AC
     document.getElementById("touchAC").innerHTML = TAC
@@ -245,6 +251,7 @@ function updateAC() {
 
     setCookie("armorBonus", armorBonus)
     setCookie("dodgeBonus", dodgeBonus)
+    setCookie("acBonus", acBonus)
 }
 
 function updateInit() {
