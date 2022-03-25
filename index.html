@@ -236,6 +236,7 @@
 									<tr>
 										<th>Save</th>
 										<th>Stat</th>
+										<th><span class="p-1">B+</span></th>
 										<th>Exp</th>
 										<th id="goodSaveLabel">GS?</th>
 										<th>+</th>
@@ -245,6 +246,9 @@
 									<tr>
 										<td>Fort</td>
 										<td id="save-fort-stat">0</td>
+										<td><input id="save-fort-bonus" class="input is-small" type="text" onchange="update()" placeholder="0"
+											oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+										/></td>
 										<td><input id="save-fort-exp" class="input is-small" type="text" onchange="update()" placeholder="0"
 											oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
 										/></td>
@@ -254,6 +258,9 @@
 									<tr>
 										<td>Ref</td>
 										<td id="save-ref-stat">0</td>
+										<td><input id="save-ref-bonus" class="input is-small" type="text" onchange="update()" placeholder="0"
+											oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+										/></td>
 										<td><input id="save-ref-exp" class="input is-small" type="text" onchange="update()" placeholder="0"
 											oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
 										/></td>
@@ -263,6 +270,9 @@
 									<tr>
 										<td>Will</td>
 										<td id="save-will-stat">0</td>
+										<td><input id="save-will-bonus" class="input is-small" type="text" onchange="update()" placeholder="0"
+											oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+										/></td>
 										<td><input id="save-will-exp" class="input is-small" type="text" onchange="update()" placeholder="0"
 											oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
 										/></td>

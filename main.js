@@ -76,6 +76,13 @@ document.getElementById("save-ref-cb").checked = (refSave === 'true')
 var willSave = getCookie("willSave")
 document.getElementById("save-will-cb").checked = (willSave === 'true')
 
+var fortSaveBonus = getCookie("fortSaveBonus")
+document.getElementById("save-fort-bonus").value = fortSaveBonus
+var refSaveBonus = getCookie("refSaveBonus")
+document.getElementById("save-ref-bonus").value = refSaveBonus
+var willSaveBonus = getCookie("willSaveBonus")
+document.getElementById("save-will-bonus").value = willSaveBonus
+
 var fortSaveXP = getCookie("fortSaveXP")
 document.getElementById("save-fort-exp").value = fortSaveXP
 var refSaveXP = getCookie("refSaveXP")
@@ -273,12 +280,16 @@ function updateSpeed() {
 
 function updateSave() {
     fortSave = document.getElementById("save-fort-cb").checked;
+    fortSaveBonus = document.getElementById("save-fort-bonus").value;
+    if (fortSaveBonus == "") {
+      fortSaveBonus = 0
+    }
     fortSaveXP = document.getElementById("save-fort-exp").value;
     if (fortSaveXP == "") {
       fortSaveXP = 0
     }
     document.getElementById("save-fort-stat").innerHTML = conMod
-    fortMod = conMod
+    fortMod = conMod + parseInt(fortSaveBonus)
     if (fortSave) {
       fortMod += parseInt(fortSaveXP)
     } else {
@@ -286,15 +297,20 @@ function updateSave() {
     }
     document.getElementById("save-fort-mod").innerHTML = fortMod
     setCookie("fortSave", fortSave)
+    setCookie("fortSaveBonus", fortSaveBonus)
     setCookie("fortSaveXP", fortSaveXP)
 
     refSave = document.getElementById("save-ref-cb").checked;
+    refSaveBonus = document.getElementById("save-ref-bonus").value;
+    if (refSaveBonus == "") {
+      refSaveBonus = 0
+    }
     refSaveXP = document.getElementById("save-ref-exp").value;
     if (refSaveXP == "") {
       refSaveXP = 0
     }
     document.getElementById("save-ref-stat").innerHTML = dexMod
-    refMod = dexMod
+    refMod = dexMod + parseInt(refSaveBonus)
     if (refSave) {
       refMod += parseInt(refSaveXP)
     } else {
@@ -302,15 +318,20 @@ function updateSave() {
     }
     document.getElementById("save-ref-mod").innerHTML = refMod
     setCookie("refSave", refSave)
+    setCookie("refSaveBonus", refSaveBonus)
     setCookie("refSaveXP", refSaveXP)
 
     willSave = document.getElementById("save-will-cb").checked;
+    willSaveBonus = document.getElementById("save-will-bonus").value;
+    if (willSaveBonus == "") {
+      willSaveBonus = 0
+    }
     willSaveXP = document.getElementById("save-will-exp").value;
     if (willSaveXP == "") {
       willSaveXP = 0
     }
     document.getElementById("save-will-stat").innerHTML = wisMod
-    willMod = wisMod
+    willMod = wisMod + parseInt(willSaveBonus)
     if (willSave) {
       willMod += parseInt(willSaveXP)
     } else {
@@ -318,6 +339,7 @@ function updateSave() {
     }
     document.getElementById("save-will-mod").innerHTML = willMod
     setCookie("willSave", willSave)
+    setCookie("willSaveBonus", willSaveBonus)
     setCookie("willSaveXP", willSaveXP)
 }
 
